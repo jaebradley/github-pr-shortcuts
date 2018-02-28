@@ -50,11 +50,11 @@ const isLoggedOut = () => document.body.classList.contains('logged-out');
 
 const isPRPage = () => /^pull\/\d+/.test(getRepoPath());
 
-const isPR = url => /pull\/\d+/.test(url);
+const isPRPageURL = url => /pull\/\d+/.test(url);
 
-const isPRCommit = url => /pull\/\d+\/commits/.test(url);
+const isPRCommitPageURL = url => /pull\/\d+\/commits/.test(url);
 
-const isPRFiles = url => /pull\/\d+\/files/.test(url);
+const isPRFilesPageURL = url => /pull\/\d+\/files/.test(url);
 
 const initialize = () => (
   safeElementReady('body')
@@ -72,11 +72,11 @@ const initialize = () => (
 
         if (tabs) {
           tabs.forEach((tab) => {
-            if (isPRFiles(tab.href)) {
+            if (isPRFilesPageURL(tab.href)) {
               tab.setAttribute('data-hotkey', 'r f');
-            } else if (isPRCommit(tab.href)) {
+            } else if (isPRCommitPageURL(tab.href)) {
               tab.setAttribute('data-hotkey', 'r c');
-            } else if (isPR(tab.href)) {
+            } else if (isPRPageURL(tab.href)) {
               tab.setAttribute('data-hotkey', 'r d');
             }
           });
