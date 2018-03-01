@@ -1,7 +1,7 @@
 {
 	"name": "GitHub PR Shortcuts",
-	"version": "1.0.0",
-	"description": "PR Shotcuts",
+	"version": "1.0.1",
+	"description": "PR shortcuts: r + d = Discussion Tab, r + c = Commits Tab, r + f = Files Tab",
 	"homepage_url": "https://github.com/jaebradley/github-pr-shortcuts",
 	"manifest_version": 2,
 	"minimum_chrome_version": "58",
