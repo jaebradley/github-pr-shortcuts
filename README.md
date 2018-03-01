@@ -1,5 +1,7 @@
 # GitHub Chrome Extension for PR Shortcuts
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jaebradley/github-pr-shortcuts.svg)](https://greenkeeper.io/)
+
 ![alt-text](https://i.imgur.com/pwFSc94.png)
 
 I'm a keyboard shortcut fiend - it always bugs me that there weren't keyboard shortcuts for the Pull Request tabs ("Discussion", "Commits", and "Files").
