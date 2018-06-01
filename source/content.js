@@ -7,12 +7,9 @@ import { check as isReserved } from 'github-reserved-names';
 
 // From refined-github: https://github.com/sindresorhus/refined-github/blob/master/source/libs/page-detect.js
 
-const safeElementReady = (selector) => {
-  const waiting = elementReady(selector);
-
-  domLoaded.then(() => requestAnimationFrame(() => waiting.cancel()));
-
-  return waiting.catch(() => null);
+const safeElementReady = async (selector) => {
+  await domLoaded();
+  await elementReady(selector);
 };
 
 const getCleanPathname = () => location.pathname.replace(/^[/]|[/]$/g, '');
