@@ -1,85 +1,21 @@
-/* eslint no-undef: 0 */
-/* eslint no-restricted-globals: 0 */
-
 import elementReady from 'element-ready';
-import domLoaded from 'dom-loaded';
-import { check as isReserved } from 'github-reserved-names';
 
-// From refined-github: https://github.com/sindresorhus/refined-github/blob/master/source/libs/page-detect.js
+import {
+  shouldSetShortcuts,
+  setShortcut,
+} from './utilities';
 
-const safeElementReady = async (selector) => {
-  await domLoaded();
-  await elementReady(selector);
-};
 
-const getCleanPathname = () => location.pathname.replace(/^[/]|[/]$/g, '');
+const execute = async () => {
+  await elementReady('body');
 
-const getOwnerAndRepo = () => {
-  const [, ownerName, repoName] = location.pathname.split('/');
-  return { ownerName, repoName };
-};
+  if (shouldSetShortcuts()) {
+    const tabs = Array.from(document.getElementsByClassName('tabnav-tab js-pjax-history-navigate'));
 
-const isDashboard = () => /^$|^(orgs[/][^/]+[/])?dashboard([/]|$)/.test(getCleanPathname());
-
-const isNotifications = () => /^([^/]+[/][^/]+\/)?notifications/.test(getCleanPathname());
-
-const isGist = () => location.hostname.startsWith('gist.') || location.pathname.startsWith('gist/');
-
-const isRepo = () => /^[^/]+\/[^/]+/.test(getCleanPathname()) &&
-  !isReserved(getOwnerAndRepo().ownerName) &&
-  !isNotifications() &&
-  !isDashboard() &&
-  !isGist();
-
-const getRepoPath = () => {
-  if (!isRepo()) {
-    return false;
+    if (tabs) {
+      tabs.forEach(tab => setShortcut(tab));
+    }
   }
-  const match = /^[^/]+[/][^/]+[/]?(.*)$/.exec(getCleanPathname());
-  return match && match[1];
 };
 
-const is404 = () => document.title === 'Page not found · GitHub';
-
-const is500 = () => document.title === 'Server Error · GitHub';
-
-const isLoggedOut = () => document.body.classList.contains('logged-out');
-
-const isPRPage = () => /^pull\/\d+/.test(getRepoPath());
-
-const isPRPageURL = url => /pull\/\d+/.test(url);
-
-const isPRCommitPageURL = url => /pull\/\d+\/commits/.test(url);
-
-const isPRFilesPageURL = url => /pull\/\d+\/files/.test(url);
-
-const initialize = () => (
-  safeElementReady('body')
-    .then(() => {
-      if (is404() || is500()) {
-        throw new Error('Error page detected');
-      }
-
-      if (isLoggedOut()) {
-        throw new Error('Is logged out');
-      }
-    }).then(() => {
-      if (isPRPage()) {
-        const tabs = Array.from(document.getElementsByClassName('tabnav-tab js-pjax-history-navigate'));
-
-        if (tabs) {
-          tabs.forEach((tab) => {
-            if (isPRFilesPageURL(tab.href)) {
-              tab.setAttribute('data-hotkey', 'r f');
-            } else if (isPRCommitPageURL(tab.href)) {
-              tab.setAttribute('data-hotkey', 'r c');
-            } else if (isPRPageURL(tab.href)) {
-              tab.setAttribute('data-hotkey', 'r d');
-            }
-          });
-        }
-      }
-    })
-);
-
-initialize();
+execute();
