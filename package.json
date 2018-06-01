@@ -23,6 +23,10 @@
   ],
   "author": "jae.b.bradley@gmail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaebradley/github-pr-shortcuts.git"
+  },
   "devDependencies": {
     "@commitlint/cli": "^6.1.2",
     "@commitlint/config-angular": "^6.1.2",
