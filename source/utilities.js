@@ -15,11 +15,11 @@ const isNotifications = () => /^([^/]+[/][^/]+\/)?notifications/.test(getCleanPa
 
 const isGist = () => window.location.hostname.startsWith('gist.') || window.location.pathname.startsWith('gist/');
 
-const isRepo = () => /^[^/]+\/[^/]+/.test(getCleanPathname()) &&
-  !isReserved(getOwnerAndRepo().ownerName) &&
-  !isNotifications() &&
-  !isDashboard() &&
-  !isGist();
+const isRepo = () => /^[^/]+\/[^/]+/.test(getCleanPathname())
+  && !isReserved(getOwnerAndRepo().ownerName)
+  && !isNotifications()
+  && !isDashboard()
+  && !isGist();
 
 const getRepoPath = () => {
   if (!isRepo()) {
@@ -48,9 +48,9 @@ const isPRFilesPageURL = url => /pull\/\d+\/files/.test(url);
 const identifyShortcut = (url) => {
   if (isPRFilesPageURL(url)) {
     return 'r f';
-  } else if (isPRCommitPageURL(url)) {
+  } if (isPRCommitPageURL(url)) {
     return 'r c';
-  } else if (isPRPageURL(url)) {
+  } if (isPRPageURL(url)) {
     return 'r d';
   }
 
