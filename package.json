@@ -58,6 +58,6 @@
   "dependencies": {
     "element-ready": "^3.0.0",
     "github-reserved-names": "^1.0.9",
-    "webextension-polyfill": "^0.3.0"
+    "webextension-polyfill": "^0.4.0"
   }
 }
